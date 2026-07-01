@@ -2,6 +2,8 @@
 
 mod loopback;
 
+use cpal::traits::{DeviceTrait, HostTrait};
+
 use crate::sources::SourceId;
 
 use super::platform::{AppCapture, PlatformCapture, PlatformError, PlatformVirtualOutput, VirtualOutput};

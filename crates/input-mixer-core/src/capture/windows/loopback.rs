@@ -6,16 +6,6 @@ use crate::sources::{SourceId, SourceKind};
 
 use super::super::platform::{AppCapture, PlatformError};
 
-#[cfg(target_os = "windows")]
-use windows::{
-    core::GUID,
-    Win32::Media::Audio::{
-        eConsole, eRender, Endpoints::IAudioSessionEnumerator, IAudioSessionControl,
-        IAudioSessionManager2, IMMDeviceEnumerator, MMDeviceEnumerator,
-    },
-    Win32::System::Com::{CoCreateInstance, CoInitializeEx, CLSCTX_ALL, COINIT_MULTITHREADED},
-};
-
 pub fn enumerate_audio_processes() -> Result<Vec<SourceId>, PlatformError> {
     #[cfg(target_os = "windows")]
     {
@@ -29,10 +19,6 @@ pub fn enumerate_audio_processes() -> Result<Vec<SourceId>, PlatformError> {
 
 #[cfg(target_os = "windows")]
 fn enumerate_windows() -> Result<Vec<SourceId>, PlatformError> {
-    unsafe {
-        let _ = CoInitializeEx(None, COINIT_MULTITHREADED);
-    }
-
     let mut sources = Vec::new();
 
     // Fallback: enumerate running processes with tasklist-style approach
