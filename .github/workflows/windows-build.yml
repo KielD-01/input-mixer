@@ -1,0 +1,40 @@
+name: Windows Build
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Fetch JUCE
+        shell: pwsh
+        run: |
+          if (-not (Test-Path external/JUCE)) {
+            git clone --depth 1 --branch 8.0.6 https://github.com/juce-framework/JUCE.git external/JUCE
+          }
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - name: Build Rust core
+        run: cargo build --release
+
+      - name: Configure CMake
+        run: cmake -B build -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build JUCE app
+        run: cmake --build build --config Release
+
+      - name: Upload Windows executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: InputMixer-Windows
+          path: |
+            build/shell/InputMixer_artefacts/Release/Input Mixer.exe
+            build/shell/InputMixer_artefacts/Release/*.dll

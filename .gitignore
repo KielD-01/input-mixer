@@ -1,0 +1,13 @@
+/target/
+/build/
+/external/JUCE/
+.DS_Store
+*.user
+.idea/
+.vscode/
+CMakeCache.txt
+CMakeFiles/
+*.xcodeproj
+*.xcworkspace
+installer/macos/InputMixer-Driver.pkg
+installer/macos/build-pkg/

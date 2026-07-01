@@ -1,0 +1,3 @@
+[submodule "external/fontaudio"]
+	path = external/fontaudio
+	url = https://github.com/fefanto/fontaudio.git

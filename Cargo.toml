@@ -1,0 +1,9 @@
+[workspace]
+members = ["crates/input-mixer-core"]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+authors = ["Input Mixer Contributors"]
