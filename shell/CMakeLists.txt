@@ -78,6 +78,17 @@ if(APPLE)
     )
 endif()
 
+if(WIN32)
+    target_link_libraries(InputMixer PRIVATE
+        ntdll
+        userenv
+        propsys
+        runtimeobject
+        ole32
+        uuid
+    )
+endif()
+
 if(UNIX AND NOT APPLE)
     target_link_libraries(InputMixer PRIVATE pthread dl m)
 endif()
